@@ -1,0 +1,10 @@
+{
+  "name": "UtilityBox — Financial Tools",
+  "short_name": "UtilityBox",
+  "description": "Private financial calculators and money-planning tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8fb",
+  "theme_color": "#f7f8fb",
+  "icons": []
+}
