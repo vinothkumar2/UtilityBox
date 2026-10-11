@@ -1,10 +1,118 @@
+/*
+  UtilityBox dark-mode contrast fix
+  Replace: src/app/globals.css with this file's contents.
+  This stylesheet keeps Tailwind's dark class approach, but fixes common low-contrast
+  text and controls seen on the deployed mobile view.
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root { color-scheme: light; }
+
+:root {
+  color-scheme: light;
+  --page-bg: #f7f8fb;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --text-main: #171923;
+  --text-muted: #647084;
+  --border: #e5e7ef;
+}
+
+.dark {
+  color-scheme: dark;
+  --page-bg: #101116;
+  --surface: #191a22;
+  --surface-muted: #20212b;
+  --text-main: #f4f5fb;
+  --text-muted: #a6adbd;
+  --border: #30323e;
+}
+
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: #f7f8fb; color: #171923; font-family: Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
-button, input, select { font: inherit; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--page-bg);
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text-main);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 ::selection { background: #e4e0ff; color: #342b91; }
+
+/* Keep browser-rendered form controls readable in both themes. */
+input, select, textarea {
+  color: #202333;
+}
+.dark input, .dark select, .dark textarea {
+  color: #f4f5fb;
+}
+.dark input::placeholder, .dark textarea::placeholder {
+  color: #9299aa;
+}
+.dark select option {
+  background: #191a22;
+  color: #f4f5fb;
+}
+
+/* Utilities used by the app contain several white cards. Ensure text contrast
+   even where an element has a dark surface but is missing a dark:text-* class. */
+.dark .bg-white,
+.dark .bg-white\/80,
+.dark .bg-white\/90 {
+  background-color: var(--surface) !important;
+}
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: var(--surface-muted) !important;
+}
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: #f1f3fa !important;
+}
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #a6adbd !important;
+}
+.dark .border-slate-200,
+.dark .border-slate-100,
+.dark .border-slate-300 {
+  border-color: var(--border) !important;
+}
+
+/* Selected results use a tinted panel. Keep it dark and readable instead of
+   rendering a pale gradient with dark text in dark mode. */
+.dark .from-violet-50 {
+  --tw-gradient-from: #211c35 var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgb(33 28 53 / 0) var(--tw-gradient-to-position) !important;
+}
+.dark .to-white {
+  --tw-gradient-to: #191a22 var(--tw-gradient-to-position) !important;
+}
+
+/* Improve muted dashboard cards and badges. */
+.dark .bg-violet-50 {
+  background-color: rgb(139 92 246 / 0.14) !important;
+}
+.dark .bg-emerald-50 {
+  background-color: rgb(16 185 129 / 0.13) !important;
+}
+.dark .bg-sky-50 {
+  background-color: rgb(14 165 233 / 0.13) !important;
+}
+.dark .bg-amber-50 {
+  background-color: rgb(245 158 11 / 0.13) !important;
+}
+.dark .text-emerald-700 { color: #6ee7b7 !important; }
+.dark .text-amber-700 { color: #fcd34d !important; }
+.dark .text-violet-700 { color: #c4b5fd !important; }
+.dark .text-violet-600 { color: #a78bfa !important; }
